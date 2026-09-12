@@ -13,7 +13,7 @@ source:
   sha256: 5245179ea6349f3d21ce8c30cbd2b5c831673d9098235c2680e43c60fd6e6e30
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -38,6 +38,22 @@ tests:
         else:
           - if not exist %LIBRARY_BIN%\aws-c-event-stream.dll exit 1
           - if not exist %LIBRARY_INC%\aws\event-stream\event_stream.h exit 1
+  - if: win and arm64
+    then:
+      requirements:
+        run:
+          - ${{ compiler('c') }}
+          - cmake
+      files:
+        recipe:
+          - CMakeLists.txt
+          - consumer.c
+      script:
+        - cmake -S . -B consumer-build -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_PREFIX_PATH="%LIBRARY_PREFIX%"
+        - cmake --build consumer-build
+        - consumer-build\consumer.exe
+        - dumpbin /headers "%LIBRARY_BIN%\aws-c-event-stream.dll" | findstr /I /C:"AA64 machine (ARM64)"
+        - dumpbin /headers consumer-build\consumer.exe | findstr /I /C:"AA64 machine (ARM64)"
 about:
   license: Apache-2.0
   license_file: LICENSE
@@ -46,6 +62,7 @@ about:
   repository: https://github.com/awslabs/aws-c-event-stream
 
 extra:
+  feedstock-name: aws-c-event-stream
   recipe-maintainers:
     - xhochy
     - conda-forge/aws-sdk-cpp
