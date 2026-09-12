@@ -1,7 +1,7 @@
 name: aws-c-event-stream native Windows ARM64
 on:
   push:
-    branches: [codex/aws-event-stream-arm64-probe]
+    branches: [codex/aws-event-stream-pinned-arm64-probe]
 permissions:
   contents: read
   actions: read
