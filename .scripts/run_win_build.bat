@@ -83,6 +83,9 @@ call :end_group
 
 :: Build the recipe
 echo Building recipe
+call conda index C:\aws-c-event-stream-prereqs
+if errorlevel 1 exit /b 1
+
 rattler-build.exe build --recipe "recipe" -m .ci_support\%CONFIG%.yaml %EXTRA_CB_OPTIONS% --build-platform %BUILD_PLATFORM% --target-platform %HOST_PLATFORM%
 if !errorlevel! neq 0 exit /b !errorlevel!
 

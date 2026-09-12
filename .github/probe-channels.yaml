@@ -1,0 +1,2 @@
+channel_sources:
+  - file:///C:/aws-c-event-stream-prereqs,conda-forge
