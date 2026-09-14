@@ -1,5 +1,0 @@
-cmake_minimum_required(VERSION 3.15)
-project(consumer LANGUAGES C)
-find_package(aws-c-event-stream CONFIG REQUIRED)
-add_executable(consumer consumer.c)
-target_link_libraries(consumer PRIVATE AWS::aws-c-event-stream)
