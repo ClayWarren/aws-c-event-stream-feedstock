@@ -46,7 +46,6 @@ about:
   repository: https://github.com/awslabs/aws-c-event-stream
 
 extra:
-  feedstock-name: aws-c-event-stream
   recipe-maintainers:
     - xhochy
     - conda-forge/aws-sdk-cpp
